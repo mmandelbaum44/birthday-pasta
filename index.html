@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>URGENT — Please Read Immediately</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Space+Mono:wght@400;700&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rust: #C0392B;
+    --cream: #FDF6EC;
+    --dark: #1a1a1a;
+    --gold: #D4A853;
+    --wine: #722F37;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #000;
+    color: #fff;
+    overflow-x: hidden;
+  }
+
+  /* ===== SECTION 1: FAKE BREAKING NEWS ===== */
+  .breaking-news {
+    min-height: 100vh;
+    background: #CC0000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .breaking-news::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.03) 2px,
+      rgba(0,0,0,0.03) 4px
+    );
+    pointer-events: none;
+  }
+
+  .news-ticker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #1a1a1a;
+    color: #CC0000;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    padding: 6px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    letter-spacing: 1px;
+  }
+
+  .news-ticker span {
+    display: inline-block;
+    animation: ticker 25s linear infinite;
+  }
+
+  @keyframes ticker {
+    0% { transform: translateX(100vw); }
+    100% { transform: translateX(-200%); }
+  }
+
+  .breaking-badge {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(16px, 3vw, 22px);
+    letter-spacing: 8px;
+    background: #fff;
+    color: #CC0000;
+    padding: 8px 32px;
+    margin-bottom: 30px;
+    animation: pulse-badge 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse-badge {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+
+  .breaking-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 10vw, 120px);
+    text-align: center;
+    line-height: 0.95;
+    padding: 0 20px;
+    text-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+  }
+
+  .breaking-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(14px, 2.5vw, 22px);
+    margin-top: 20px;
+    opacity: 0.9;
+    text-align: center;
+    padding: 0 20px;
+    font-weight: 300;
+  }
+
+  .scroll-prompt {
+    position: absolute;
+    bottom: 30px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.7;
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  .scroll-prompt::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 30px;
+    background: #fff;
+    margin: 8px auto 0;
+    animation: scroll-line 2s ease-in-out infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  @keyframes scroll-line {
+    0% { height: 0; opacity: 0; }
+    50% { height: 30px; opacity: 1; }
+    100% { height: 30px; opacity: 0; }
+  }
+
+  /* ===== SECTION 2: THE REVEAL ===== */
+  .the-reveal {
+    min-height: 100vh;
+    background: var(--dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 60px 20px;
+  }
+
+  .jk {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(80px, 18vw, 200px);
+    color: var(--gold);
+    line-height: 0.85;
+    text-align: center;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .jk.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .reveal-text {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: clamp(20px, 4vw, 40px);
+    color: #999;
+    margin-top: 20px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1s ease 0.5s;
+  }
+
+  .reveal-text.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===== SECTION 3: MOVIE TRAILER ===== */
+  .movie-trailer {
+    min-height: 100vh;
+    background: linear-gradient(180deg, var(--dark) 0%, #0a0a0a 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    text-align: center;
+    position: relative;
+  }
+
+  .studio-text {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(10px, 1.8vw, 14px);
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: #555;
+    margin-bottom: 40px;
+  }
+
+  .trailer-line {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 5vw, 52px);
+    font-weight: 400;
+    line-height: 1.3;
+    color: #ddd;
+    max-width: 800px;
+    margin-bottom: 50px;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1s ease;
+  }
+
+  .trailer-line.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .trailer-line em {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .trailer-line .strikethrough {
+    text-decoration: line-through;
+    color: #555;
+  }
+
+  /* ===== SECTION 4: THE TITLE CARD ===== */
+  .title-card {
+    min-height: 100vh;
+    background: var(--cream);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .title-card::before {
+    content: '🌶️';
+    position: absolute;
+    font-size: 300px;
+    opacity: 0.04;
+    top: -50px;
+    right: -50px;
+    transform: rotate(15deg);
+  }
+
+  .title-card::after {
+    content: '🍝';
+    position: absolute;
+    font-size: 250px;
+    opacity: 0.04;
+    bottom: -30px;
+    left: -30px;
+    transform: rotate(-10deg);
+  }
+
+  .coming-tuesday {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(11px, 1.5vw, 14px);
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 30px;
+  }
+
+  .movie-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(60px, 14vw, 160px);
+    color: var(--rust);
+    line-height: 0.9;
+    text-align: center;
+    text-shadow: 4px 4px 0 rgba(192, 57, 43, 0.15);
+  }
+
+  .movie-subtitle {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: clamp(18px, 3.5vw, 36px);
+    color: var(--wine);
+    margin-top: 15px;
+    opacity: 0.8;
+  }
+
+  .tagline {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(12px, 1.8vw, 16px);
+    color: #888;
+    margin-top: 40px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .credits {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(9px, 1.2vw, 11px);
+    color: #aaa;
+    margin-top: 50px;
+    text-align: center;
+    line-height: 2;
+    letter-spacing: 1px;
+  }
+
+  .credits span { color: var(--rust); }
+
+  /* ===== SECTION 5: THE CLASSIFIED BRIEFING ===== */
+  .briefing {
+    background: #111;
+    padding: 80px 20px;
+    position: relative;
+  }
+
+  .briefing-container {
+    max-width: 750px;
+    margin: 0 auto;
+  }
+
+  .classified-stamp {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--rust);
+    letter-spacing: 6px;
+    border: 3px solid var(--rust);
+    display: inline-block;
+    padding: 6px 20px;
+    transform: rotate(-3deg);
+    margin-bottom: 40px;
+    opacity: 0.9;
+  }
+
+  .mission-header {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: #555;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+
+  .mission-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 42px);
+    color: var(--gold);
+    margin-bottom: 30px;
+  }
+
+  .mission-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+    color: #bbb;
+    margin-bottom: 20px;
+  }
+
+  .mission-text strong {
+    color: #fff;
+  }
+
+  .warning-box {
+    border: 1px solid var(--rust);
+    padding: 20px 24px;
+    margin: 30px 0;
+    background: rgba(192, 57, 43, 0.05);
+  }
+
+  .warning-box .label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--rust);
+    margin-bottom: 10px;
+  }
+
+  .warning-box p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: #ccc;
+    line-height: 1.7;
+  }
+
+  /* ===== SECTION 6: SHOPPING (HEIST PLAN) ===== */
+  .heist {
+    background: linear-gradient(180deg, #111 0%, #0d0d0d 100%);
+    padding: 80px 20px;
+  }
+
+  .heist-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .heist-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 7vw, 60px);
+    color: #fff;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .heist-subtitle {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: clamp(14px, 2.5vw, 20px);
+    color: #666;
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .target-location {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--rust);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .target-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 4vw, 32px);
+    color: var(--gold);
+    margin-bottom: 5px;
+  }
+
+  .target-address {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 20px;
+  }
+
+  .loot-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 50px;
+  }
+
+  @media (max-width: 600px) {
+    .loot-grid { grid-template-columns: 1fr; }
+  }
+
+  .loot-item {
+    border: 1px solid #2a2a2a;
+    padding: 16px 18px;
+    background: rgba(255,255,255,0.02);
+    transition: all 0.3s ease;
+  }
+
+  .loot-item:hover {
+    border-color: var(--gold);
+    background: rgba(212, 168, 83, 0.03);
+  }
+
+  .loot-item .name {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 3px;
+  }
+
+  .loot-item .detail {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: #777;
+    line-height: 1.5;
+  }
+
+  .loot-item .why {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--gold);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  .divider-line {
+    width: 60px;
+    height: 1px;
+    background: #333;
+    margin: 50px auto;
+  }
+
+  /* ===== SECTION 7: THE RECIPE (SCREENPLAY) ===== */
+  .screenplay {
+    background: var(--cream);
+    padding: 80px 20px;
+    color: var(--dark);
+  }
+
+  .screenplay-container {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .screenplay-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .screenplay-header h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 7vw, 56px);
+    color: var(--rust);
+  }
+
+  .screenplay-header p {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: #888;
+  }
+
+  .scene {
+    margin-bottom: 35px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+  }
+
+  .scene.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .scene-heading {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--rust);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .scene-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 3.5vw, 26px);
+    color: var(--dark);
+    margin-bottom: 10px;
+  }
+
+  .scene-action {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+    color: #555;
+  }
+
+  .scene-action strong {
+    color: var(--dark);
+  }
+
+  .scene-time {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--rust);
+    margin-top: 8px;
+    letter-spacing: 1px;
+  }
+
+  .option-box {
+    border-left: 3px solid var(--rust);
+    padding: 15px 20px;
+    margin: 15px 0;
+    background: rgba(192, 57, 43, 0.04);
+  }
+
+  .option-box .option-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    color: var(--rust);
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+  }
+
+  .option-box .option-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+  }
+
+  .ingredients-block {
+    background: #fff;
+    border: 1px solid #e5ddd3;
+    padding: 25px 28px;
+    margin: 30px 0;
+  }
+
+  .ingredients-block h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--rust);
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+  }
+
+  .ingredients-block p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.9;
+    color: #555;
+  }
+
+  /* ===== SECTION 8: BIRTHDAY FINALE ===== */
+  .finale {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #0a0a0a 0%, var(--wine) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: sparkle-float 4s ease-in-out infinite;
+  }
+
+  @keyframes sparkle-float {
+    0%, 100% { opacity: 0; transform: translateY(0) scale(0); }
+    50% { opacity: 1; transform: translateY(-100px) scale(1); }
+  }
+
+  .finale-pre {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(10px, 1.5vw, 13px);
+    letter-spacing: 6px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    opacity: 0.8;
+  }
+
+  .finale-message {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 7vw, 64px);
+    color: #fff;
+    line-height: 1.2;
+    max-width: 700px;
+    margin-bottom: 30px;
+  }
+
+  .finale-message em {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .finale-note {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: clamp(15px, 2.5vw, 20px);
+    color: rgba(255,255,255,0.6);
+    max-width: 500px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+  }
+
+  .finale-ps {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    max-width: 450px;
+    line-height: 1.8;
+    margin-top: 30px;
+  }
+
+  .heart {
+    display: inline-block;
+    color: var(--rust);
+    animation: heartbeat 1.5s ease-in-out infinite;
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.15); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.1); }
+  }
+
+  /* ===== GLOBAL ANIMATIONS ===== */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== SECTION 1: FAKE BREAKING NEWS ===== -->
+<section class="breaking-news">
+  <div class="news-ticker">
+    <span>DEVELOPING STORY ● KITCHEN SOURCES CONFIRM ● SITUATION IS EVOLVING ● AUTHORITIES HAVE BEEN NOTIFIED ● GOCHUJANG LEVELS RISING ● THIS IS NOT A DRILL ● DEVELOPING STORY ● KITCHEN SOURCES CONFIRM ● SITUATION IS EVOLVING</span>
+  </div>
+  <div class="breaking-badge">⚠️ BREAKING NEWS ⚠️</div>
+  <h1 class="breaking-headline">LOCAL MAN BUILDS<br>ENTIRE WEBSITE<br>ABOUT PASTA</h1>
+  <p class="breaking-sub">Sources confirm he spent an unreasonable amount of time on this.<br>The pasta in question is described as "honestly worth it though."</p>
+  <div class="scroll-prompt">SCROLL FOR FULL STORY</div>
+</section>
+
+<!-- ===== SECTION 2: THE REVEAL ===== -->
+<section class="the-reveal">
+  <div class="jk" id="jk">OKAY BUT<br>SERIOUSLY</div>
+  <p class="reveal-text" id="reveal-text">This is a dinner invitation.<br>And yes, it has its own website now. You're welcome.</p>
+</section>
+
+<!-- ===== SECTION 3: MOVIE TRAILER ===== -->
+<section class="movie-trailer">
+  <p class="studio-text fade-in">Matt & Camille Productions Present</p>
+  <div class="trailer-line fade-in">From the kitchen that brought you<br><em>"Is the smoke detector supposed to do that?"</em></div>
+  <div class="trailer-line fade-in">From the man who once Googled<br><em>"how long to boil water"</em></div>
+  <div class="trailer-line fade-in">Comes a dish so dramatically good,<br>it required <em>its own website</em></div>
+</section>
+
+<!-- ===== SECTION 4: TITLE CARD ===== -->
+<section class="title-card">
+  <div class="coming-tuesday">Coming To Our Kitchen This Week</div>
+  <h1 class="movie-title">SPICY VODKA<br>RIGATONI</h1>
+  <p class="movie-subtitle">A Joshua Weissman Joint</p>
+  <p class="tagline">Pescatarian · 30 Minutes · One Pan · Zero Compromise</p>
+  <div class="credits">
+    <span>DIRECTED BY</span> Matt<br>
+    <span>PRODUCED BY</span> Claude AI (honestly did most of the work)<br>
+    <span>RECIPE BY</span> Joshua Weissman<br>
+    <span>STARRING</span> Gochujang · Mutti Tomato Paste · Afeltra Rigatoni<br>
+    <span>FEATURING</span> A Suspicious Amount of Heavy Cream<br>
+    <span>SPECIAL APPEARANCE BY</span> Anchovies (You Won't Even Know They're There)<br>
+    <span>CATERING BY</span> Eataly (Flatiron Location)
+  </div>
+</section>
+
+<!-- ===== SECTION 5: THE CLASSIFIED BRIEFING ===== -->
+<section class="briefing">
+  <div class="briefing-container">
+    <div class="classified-stamp fade-in">CLASSIFIED</div>
+
+    <p class="mission-header">Mission Briefing</p>
+    <h2 class="mission-title fade-in">Operation: Vodka Rigatoni</h2>
+
+    <p class="mission-text fade-in">
+      <strong>THE SITUATION:</strong> I'm making you an absurdly good pasta dinner this week. 
+      Monday's out (you're with Tarek) and Wednesday's out (I have that workout and then 
+      Survivor with Pawlan & Brit). So we're looking at <strong>Tuesday, Thursday, or Friday</strong> — 
+      dealer's choice. Tuesday also happens to be your birthday, which would make this 
+      an unreasonably fun birthday dinner if you're into that. But honestly, any night works. 
+      The pasta doesn't know what day it is.
+    </p>
+
+    <p class="mission-text fade-in">
+      <strong>THE PLAN:</strong> I cook you a restaurant-quality spicy vodka rigatoni 
+      adapted from Joshua Weissman's viral recipe. We open a bottle of something nice. 
+      You sit there looking beautiful. Total time: 30 minutes. Total effort on your part: zero.
+    </p>
+
+    <div class="warning-box fade-in">
+      <p class="label">⚠️ CRITICAL INTELLIGENCE</p>
+      <p>
+        This recipe contains <strong>anchovies</strong>. Before you close this tab — 
+        they DISSOLVE completely. You will not taste fish. It's the same trick behind 
+        Caesar dressing and puttanesca. I wouldn't lie to you about pasta.<br><br>
+        However, if the anchovy intel is a dealbreaker, we have <strong>Option B: Soy Chorizo</strong> standing by. 
+        Your call.
+      </p>
+    </div>
+
+    <p class="mission-text fade-in">
+      <strong>THE SECRET WEAPON:</strong> Gochujang — a Korean fermented chili paste 
+      that makes this unlike any vodka pasta you've ever had. It's sweet, spicy, 
+      deeply savory, and the reason Josh's recipe went viral. Mixed with Mutti's 
+      double-concentrated tomato paste (Italy's #1 brand, uses 5.5 lbs of real 
+      tomatoes per pound of paste), it creates a glossy rust-colored sauce that 
+      coats every ridge of the rigatoni. It's genuinely insane.
+    </p>
+  </div>
+</section>
+
+<!-- ===== SECTION 6: SHOPPING (HEIST PLAN) ===== -->
+<section class="heist">
+  <div class="heist-container">
+    <h2 class="heist-title fade-in">THE HEIST</h2>
+    <p class="heist-subtitle fade-in">Two targets. One shopping bag. No witnesses.</p>
+
+    <!-- EATALY -->
+    <p class="target-location fade-in">Target Alpha</p>
+    <h3 class="target-name fade-in">Eataly Flatiron</h3>
+    <p class="target-address fade-in">200 5th Avenue, New York — Hit the cheese counter first (it has a wait)</p>
+
+    <div class="loot-grid">
+      <div class="loot-item fade-in">
+        <div class="name">Afeltra Rigatoni</div>
+        <div class="detail">100% Italian Grain, 17.6 oz (~$11)</div>
+        <div class="why">Bronze-die cut — rough surface grips sauce</div>
+      </div>
+      <div class="loot-item fade-in">
+        <div class="name">Mutti Tomato Paste</div>
+        <div class="detail">Double Concentrated tube (4.5 oz) — grab 2</div>
+        <div class="why">#1 in blind taste tests — 5.5 lbs tomatoes per lb</div>
+      </div>
+      <div class="loot-item fade-in">
+        <div class="name">Fulvi Pecorino Romano DOP</div>
+        <div class="detail">Wedge from the cheese counter</div>
+        <div class="why">DOP certified authentic — sharp & salty</div>
+      </div>
+      <div class="loot-item fade-in">
+        <div class="name">Parmigiano Reggiano DOP</div>
+        <div class="detail">Small wedge for finishing</div>
+        <div class="why">Nuttier than pecorino — the final flourish</div>
+      </div>
+      <div class="loot-item fade-in">
+        <div class="name">Italian Anchovies</div>
+        <div class="detail">Oil-packed (Agostino Recca or similar)</div>
+        <div class="why">Option A only — they dissolve, trust me</div>
+      </div>
+      <div class="loot-item fade-in">
+        <div class="name">Quality EVOO</div>
+        <div class="detail">Olitalia is what their restaurants use</div>
+        <div class="why">Base fat for the entire sauce</div>
+      </div>
+      <div class="loot-item fade-in">
+        <div class="name">European-Style Butter</div>
+        <div class="detail">Unsalted</div>
+        <div class="why">Higher fat % = silkier finish</div>
+      </div>
+      <div class="loot-item fade-in">
+        <div class="name">A Bottle of Wine 🍷</div>
+        <div class="detail">Ask them to pair with spicy vodka pasta</div>
+        <div class="why">We're making fancy pasta. Obviously</div>
+      </div>
+    </div>
+
+    <div class="divider-line"></div>
+
+    <!-- WHOLE FOODS -->
+    <p class="target-location fade-in">Target Bravo</p>
+    <h3 class="target-name fade-in">Whole Foods</h3>
+    <p class="target-address fade-in">For the Korean + produce items Eataly won't carry</p>
+
+    <div class="loot-grid">
+      <div class="loot-item fade-in">
+        <div class="name">Mother-in-Law's Gochujang</div>
+        <div class="detail">Asian/international aisle</div>
+        <div class="why">Clean ingredients, real fermentation</div>
+      </div>
+      <div class="loot-item fade-in">
+        <div class="name">2 Red Fresno Chilies</div>
+        <div class="detail">Produce section, near the jalapeños</div>
+        <div class="why">Fruity heat — sub red jalapeño if needed</div>
+      </div>
+      <div class="loot-item fade-in">
+        <div class="name">Heavy Cream</div>
+        <div class="detail">Any brand, 1 pint, full fat</div>
+        <div class="why">No substitutes. This is not a drill</div>
+      </div>
+      <div class="loot-item fade-in">
+        <div class="name">1 Head of Garlic</div>
+        <div class="detail">Fresh only — need 4 cloves</div>
+        <div class="why">Pre-minced garlic is a federal crime</div>
+      </div>
+      <div class="loot-item fade-in">
+        <div class="name">Soy Chorizo (Option B only)</div>
+        <div class="detail">Plant-based section, any brand</div>
+        <div class="why">Smoky-spicy, crispy when browned</div>
+      </div>
+      <div class="loot-item fade-in">
+        <div class="name">Mini Vodka Nip</div>
+        <div class="detail">Liquor store on the way</div>
+        <div class="why">You need 2 tsp. This is not a drinking recipe</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 7: THE RECIPE (SCREENPLAY) ===== -->
+<section class="screenplay">
+  <div class="screenplay-container">
+    <div class="screenplay-header">
+      <h2>THE SCREENPLAY</h2>
+      <p>A recipe in seven acts</p>
+    </div>
+
+    <div class="option-box scene fade-in">
+      <div class="option-label">Choose Your Fighter</div>
+      <div class="option-text">
+        <strong>OPTION A — Anchovy Fillets (recommended):</strong> 4 oil-packed fillets dissolve 
+        completely into olive oil in 90 seconds. Zero fishy taste. Pure umami. The Italian way.<br><br>
+        <strong>OPTION B — Soy Chorizo:</strong> 3 oz crumbled, browned until crispy (~4 min). 
+        Gives you the smoky, spicy, textural bits. Remove to a plate, build sauce in the 
+        flavored oil, fold back in at the end.
+      </div>
+    </div>
+
+    <div class="ingredients-block scene fade-in">
+      <h3>The Cast of Characters</h3>
+      <p>
+        3½ Tbsp extra virgin olive oil · 4 anchovy fillets OR 3 oz soy chorizo · 
+        1½ red Fresno chilies, finely chopped · 4 garlic cloves, thinly sliced · 
+        2 tsp sugar · 2 Tbsp gochujang · ⅔ cup Mutti Double Concentrated tomato paste · 
+        2 tsp vodka · 3 Tbsp water · 1 cup heavy cream · 10 oz Afeltra rigatoni · 
+        ½ cup finely grated Pecorino Romano · 1½ Tbsp cold unsalted butter, cubed · 
+        Kosher salt · Parmigiano Reggiano + black pepper for the finale
+      </p>
+    </div>
+
+    <div class="scene fade-in">
+      <div class="scene-heading">Act I</div>
+      <div class="scene-title">The Boiling Point</div>
+      <div class="scene-action">
+        Fill a large pot halfway with water. Bring to a rolling boil over high heat. 
+        Salt it until it tastes like the ocean. <strong>This is your only chance to season 
+        the pasta from the inside.</strong> Don't mess this up. The entire dish is counting on you.
+      </div>
+    </div>
+
+    <div class="scene fade-in">
+      <div class="scene-heading">Act II</div>
+      <div class="scene-title">The Protein Awakens</div>
+      <div class="scene-action">
+        <strong>Option A:</strong> Olive oil + anchovies in a large pan over medium-low. 
+        Press with a wooden spoon, stirring constantly until they dissolve completely. 
+        They should melt, not fry. This creates a deeply savory oil base.<br><br>
+        <strong>Option B:</strong> Olive oil over medium heat. Add crumbled soy chorizo. 
+        Cook until browned and crispy. Remove crispy bits to a plate (they'll return for the finale). 
+        Keep the gorgeous flavored oil in the pan.
+      </div>
+      <div class="scene-time">⏱ 1–4 MIN</div>
+    </div>
+
+    <div class="scene fade-in">
+      <div class="scene-heading">Act III</div>
+      <div class="scene-title">The Foundation</div>
+      <div class="scene-action">
+        Medium heat. Add chopped Fresnos + sliced garlic + a pinch of salt. Sauté 1 minute 
+        until fragrant and softened. Stir in sugar, then add the gochujang and tomato paste. 
+        <strong>Now cook 2–3 minutes, stirring constantly</strong>, until the mixture thickens, 
+        darkens slightly, and starts caramelizing and sticking to the pan. That sticky stuff 
+        on the bottom? That's called fond. It's the flavor foundation of the entire dish. 
+        Don't rush it. Don't burn it. Respect the fond.
+      </div>
+      <div class="scene-time">⏱ 3–4 MIN</div>
+    </div>
+
+    <div class="scene fade-in">
+      <div class="scene-heading">Act IV</div>
+      <div class="scene-title">The Rigatoni Enters</div>
+      <div class="scene-action">
+        Drop the pasta into the boiling water. Cook to al dente per package directions 
+        (12–14 minutes for Afeltra). <strong>Before draining, ladle out ¾ cup of starchy 
+        pasta water</strong> and set it aside. This cloudy liquid is gold — it's what 
+        emulsifies the sauce into that glossy, clingy coating later.
+      </div>
+      <div class="scene-time">⏱ 12–14 MIN</div>
+    </div>
+
+    <div class="scene fade-in">
+      <div class="scene-heading">Act V</div>
+      <div class="scene-title">The Deglaze</div>
+      <div class="scene-action">
+        Splash vodka and water into the sauce pan. Scrape up every bit of caramelized 
+        fond with a wooden spoon — this is where the magic lives. Pour in the heavy cream, 
+        bring to a boil over medium-high, then immediately reduce to low. 
+        Simmer 1–2 minutes until slightly thickened. Taste and adjust salt.
+      </div>
+      <div class="scene-time">⏱ 2 MIN</div>
+    </div>
+
+    <div class="scene fade-in">
+      <div class="scene-heading">Act VI</div>
+      <div class="scene-title">The Marriage</div>
+      <div class="scene-action">
+        Add drained rigatoni directly to the sauce. <strong>Kill the heat completely.</strong> 
+        Now vigorously stir in the grated pecorino and cold cubed butter — the residual 
+        heat will melt them into a glossy, emulsified coating that clings to every ridge. 
+        If the sauce is too tight, add reserved pasta water one tablespoon at a time (go easy). 
+        If doing Option B, fold those crispy soy chorizo bits back in now. Final taste for salt.
+      </div>
+    </div>
+
+    <div class="scene fade-in">
+      <div class="scene-heading">Act VII — Finale</div>
+      <div class="scene-title">The Grand Finale</div>
+      <div class="scene-action">
+        Divide into warm bowls (run them under hot water for 30 seconds). 
+        Finish with a generous shower of freshly grated Parmigiano Reggiano 
+        and several cracks of black pepper. <strong>Serve immediately</strong> — 
+        this sauce tightens as it sits.<br><br>
+        Pour the wine. Clink glasses. Enjoy.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== SECTION 8: BIRTHDAY FINALE ===== -->
+<section class="finale" id="finale">
+  <p class="finale-pre">One More Thing</p>
+  <h2 class="finale-message">
+    Pick a night,<br><em>Camille</em>
+  </h2>
+  <p class="finale-note">
+    I built you a whole website about pasta because that's apparently 
+    who I am now. But really — I just wanted to do something fun for us 
+    this week. You pick the night, I'll handle the rest. All the shopping, 
+    all the cooking, all the aggressive Googling of "best tomato paste brands."
+  </p>
+  <p class="finale-note" style="font-size: clamp(13px, 2vw, 17px); opacity: 0.5;">
+    And if that night happens to be your birthday...<br>
+    well, that would be pretty perfect too.
+  </p>
+  <div style="font-size: 48px; margin: 20px 0;">
+    <span class="heart">❤️</span>
+  </div>
+  <p class="finale-ps">
+    P.S. Yes, an AI helped me plan this dinner. No, I'm not ashamed. 
+    The AI and I have been through a lot together today. We tried to extract 
+    a YouTube transcript for like 45 minutes. It was a whole thing.<br><br>
+    P.P.S. The Horderly people did a great job on the coat closet though, right?<br><br>
+    P.P.P.S. Option A. Trust me on the anchovies.
+  </p>
+</section>
+
+<script>
+  // Scroll-triggered animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-in, .jk, .reveal-text, .scene, .trailer-line').forEach(el => {
+    observer.observe(el);
+  });
+
+  // Sparkles in finale
+  const finale = document.getElementById('finale');
+  for (let i = 0; i < 20; i++) {
+    const sparkle = document.createElement('div');
+    sparkle.className = 'sparkle';
+    sparkle.style.left = Math.random() * 100 + '%';
+    sparkle.style.top = Math.random() * 100 + '%';
+    sparkle.style.animationDelay = Math.random() * 4 + 's';
+    sparkle.style.animationDuration = (3 + Math.random() * 3) + 's';
+    finale.appendChild(sparkle);
+  }
+
+  // Change tab title after a few seconds
+  setTimeout(() => {
+    document.title = "🍝 Pick a Night, Camille";
+  }, 3000);
+</script>
+
+</body>
+</html>
